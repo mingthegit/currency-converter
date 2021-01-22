@@ -10,8 +10,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import { DateRange, GraphPoint } from "utils/interfaces";
 import "./HistoryGraph.scss";
-import { DateRange, GraphPoint } from "../utils/interfaces";
 
 interface HistoryGraphProps {
   graphData: GraphPoint[];

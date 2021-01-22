@@ -7,7 +7,7 @@ import {
   FormSchema,
   CurrencySource,
   NullableNumber,
-} from "../utils/interfaces";
+} from "utils/interfaces";
 import "./CurrencyForm.scss";
 
 interface CurrencyFormProps {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Typography, Row, Col, Space } from "antd";
 
-import CurrencyForm from "./components/CurrencyForm";
-import HistoryGraph from "./components/HistoryGraph";
-import { Currency, FormSchema, NullableNumber, DateRange, GraphPoint } from "./utils/interfaces";
-import API from "./utils/api";
+import CurrencyForm from "components/CurrencyForm";
+import HistoryGraph from "components/HistoryGraph";
+import { Currency, FormSchema, NullableNumber, DateRange, GraphPoint } from "utils/interfaces";
+import API from "utils/api";
 import "./App.scss";
 
 const { Header, Content, Footer } = Layout;

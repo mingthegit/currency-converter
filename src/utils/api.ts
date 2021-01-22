@@ -6,7 +6,7 @@ import {
   GraphPoint,
   ExchangeRateResponseObject,
   HistoryResponseObject,
-} from "./interfaces";
+} from "utils/interfaces";
 
 const API_BASE = "https://api.exchangeratesapi.io";
 
