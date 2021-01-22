@@ -25,12 +25,20 @@ export type NullableNumber = number | undefined;
 export type FormSchema = {
   base: Currency;
   target: Currency;
-  amount: NullableNumber
+  amount: NullableNumber;
 };
 
 export enum CurrencySource {
   Base = "base",
   Target = "target",
+}
+
+export enum DateRange {
+  OneMonth = "1M",
+}
+export interface GraphPoint {
+  date: string;
+  rate: number;
 }
 
 export type Rates = {
@@ -40,4 +48,13 @@ export type Rates = {
 export interface ExchangeRateResponseObject {
   base: string;
   rates: Rates;
+}
+
+export type HistoryRates = {
+  [date: string]: Rates;
+};
+
+export interface HistoryResponseObject {
+  base: string;
+  rates: HistoryRates;
 }

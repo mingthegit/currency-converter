@@ -2,26 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Layout, Typography, Row, Col, Space } from "antd";
 
 import CurrencyForm from "./components/CurrencyForm";
+import HistoryGraph from "./components/HistoryGraph";
+import { Currency, FormSchema, NullableNumber, DateRange, GraphPoint } from "./utils/interfaces";
 import API from "./utils/api";
-import {
-  Currency,
-  FormSchema,
-  NullableNumber,
-} from "./utils/interfaces";
 import "./App.scss";
 
 const { Header, Content, Footer } = Layout;
 const { Title, Text } = Typography;
 
 const App = () => {
-  const [formValues, setFormValues] = useState<Partial<FormSchema>>({
+  const [formValues, setFormValues] = useState<FormSchema>({
     base: Currency.GBP,
     target: Currency.EUR,
+    amount: undefined,
   });
   const [exchangeRate, setExchangeRate] = useState<NullableNumber>();
+  const [dateRange, setDateRange] = useState<DateRange>(DateRange.OneMonth);
+  const [graphData, setGraphData] = useState<GraphPoint[]>([]);
 
   useEffect(() => {
-    async function fetchExchangeRate(formValues: Partial<FormSchema>) {
+    async function fetchExchangeRate(formValues: FormSchema) {
       try {
         const rate = await API.fetchExchangeRate(formValues);
         setExchangeRate(rate);
@@ -32,6 +32,18 @@ const App = () => {
 
     fetchExchangeRate(formValues);
   }, [formValues.base, formValues.target]);
+
+  useEffect(() => {
+    async function fetchHistoryData(formValues: FormSchema, dateRange: DateRange) {
+      try {
+        setGraphData(await API.fetchHistoryData(formValues, dateRange));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchHistoryData(formValues, dateRange);
+  }, [formValues.base, formValues.target, dateRange]);
 
   return (
     <Layout className="AppLayout">
@@ -49,7 +61,7 @@ const App = () => {
             />
           </Col>
           <Col xs={22} sm={16} md={10} xl={8}>
-            <h2>Historical Data</h2>
+            <HistoryGraph graphData={graphData} dateRange={dateRange} />
           </Col>
         </Row>
       </Content>
