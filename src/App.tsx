@@ -47,20 +47,20 @@ const App = () => {
 
   return (
     <Layout className="AppLayout">
-      <Header className="AppLayoutHeader">
+      <Header className="Header">
         <Title>Currency Converter</Title>
       </Header>
-      <Content className="AppLayoutContent">
+      <Content className="Content">
         <Space size="large" />
         <Row justify="center" gutter={24}>
-          <Col xs={22} sm={16} md={8} xl={5}>
+          <Col xs={22} sm={16} md={8} xl={5} className="Column">
             <CurrencyForm
               formValues={formValues}
               setFormValues={setFormValues}
               exchangeRate={exchangeRate}
             />
           </Col>
-          <Col xs={22} sm={16} md={10} xl={8}>
+          <Col xs={22} sm={16} md={10} xl={8} className="Column">
             <HistoryGraph graphData={graphData} dateRange={dateRange} setDateRange={setDateRange} />
           </Col>
         </Row>

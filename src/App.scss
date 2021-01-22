@@ -1,20 +1,24 @@
 .AppLayout {
   text-align: center;
   height: 100vh;
-}
 
-.AppLayoutHeader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 6rem;
+  .Header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
 
-  h1 {
-    color: #FFF;
-    margin-bottom: 0;
+    h1 {
+      color: #FFF;
+      margin-bottom: 0;
+    }
   }
-}
 
-.AppLayoutContent {
-  padding: 3rem 0;
+  .Content {
+    padding: 1rem 0;
+  }
+
+  .Column {
+    padding: 2rem 0;
+  }
 }
