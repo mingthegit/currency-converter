@@ -61,7 +61,7 @@ const App = () => {
             />
           </Col>
           <Col xs={22} sm={16} md={10} xl={8}>
-            <HistoryGraph graphData={graphData} dateRange={dateRange} />
+            <HistoryGraph graphData={graphData} dateRange={dateRange} setDateRange={setDateRange} />
           </Col>
         </Row>
       </Content>

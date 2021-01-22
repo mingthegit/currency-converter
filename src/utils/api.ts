@@ -34,8 +34,18 @@ export const fetchHistoryData = async (
   try {
     const { base, target } = formValues;
 
-    const startDate = dayjs().subtract(1, "month").format("YYYY-MM-DD");
-    const endDate = dayjs().format("YYYY-MM-DD");
+    let startDate,
+      endDate = dayjs().format("YYYY-MM-DD");
+    switch (dateRange) {
+      case DateRange.FiveDays:
+        startDate = dayjs().subtract(5, "day").format("YYYY-MM-DD");
+        break;
+      case DateRange.OneYear:
+        startDate = dayjs().subtract(1, "year").format("YYYY-MM-DD");
+        break;
+      default:
+        startDate = dayjs().subtract(1, "month").format("YYYY-MM-DD");
+    }
 
     const request = await fetch(
       `${API_BASE}/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${target}`

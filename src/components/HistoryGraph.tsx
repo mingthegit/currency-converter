@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Typography } from "antd";
+import { Row, Col, Typography, Button, Space } from "antd";
 import {
   AreaChart,
   Area,
@@ -16,13 +16,31 @@ import { DateRange, GraphPoint } from "../utils/interfaces";
 interface HistoryGraphProps {
   graphData: GraphPoint[];
   dateRange: DateRange;
+  setDateRange: Function;
 }
 
-const HistoryGraph = ({ graphData, dateRange }: HistoryGraphProps) => {
+const HistoryGraph = ({ graphData, dateRange, setDateRange }: HistoryGraphProps) => {
+  const handleRangeSelect = (range: string) => {
+    setDateRange(range);
+  };
+
   return (
     <Row justify="center" className="HistoryGraph">
       <Col span={24}>
-        <Typography.Paragraph className="HistoryGraphTitle">Exchange History</Typography.Paragraph>
+        <Typography.Paragraph className="Title">Exchange History</Typography.Paragraph>
+      </Col>
+      <Col span={24} className="RangeSelector">
+        <Space>
+          {Object.values(DateRange).map((range) => (
+            <Button
+              key={range}
+              type={range === dateRange ? "primary" : "default"}
+              onClick={() => handleRangeSelect(range)}
+            >
+              {range}
+            </Button>
+          ))}
+        </Space>
       </Col>
       <Col span={24}>
         <ResponsiveContainer>
