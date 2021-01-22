@@ -1,0 +1,26 @@
+.CurrencyForm {
+  .AmountInput,
+  .CurrencySelector {
+    width: 100%;
+  }
+
+  .Description {
+    font-size: 1.5rem;
+  }
+
+  .ant-form-item-label > label {
+    height: 1rem;
+  }
+
+  .ant-form-item {
+    margin-bottom: 1rem;
+  }
+
+  .ResultBox {
+    border-radius: 0.25rem;
+    border: 1px solid #000;
+    padding: 1rem;
+    font-size: 1.25rem;
+    margin-top: 1rem;
+  }
+}
