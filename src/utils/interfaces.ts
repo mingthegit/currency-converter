@@ -34,9 +34,9 @@ export enum CurrencySource {
 }
 
 export enum DateRange {
-  FiveDays = "5D",
-  OneMonth = "1M",
-  OneYear = "1Y",
+  FiveDays = "5 Days",
+  OneMonth = "1 Month",
+  OneYear = "1 Year",
 }
 export interface GraphPoint {
   date: string;
