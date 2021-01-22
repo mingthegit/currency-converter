@@ -4,6 +4,7 @@ import {
   FormSchema,
   DateRange,
   GraphPoint,
+  NullableNumber,
   ExchangeRateResponseObject,
   HistoryResponseObject,
 } from "utils/interfaces";
@@ -13,7 +14,7 @@ const API_BASE = "https://api.exchangeratesapi.io";
 export const fetchExchangeRate = async ({
   base,
   target,
-}: FormSchema): Promise<number | undefined> => {
+}: FormSchema): Promise<NullableNumber> => {
   try {
     const request = await fetch(`${API_BASE}/latest?base=${base}&symbols=${target}`);
     const response: ExchangeRateResponseObject = await request.json();
@@ -51,14 +52,12 @@ export const fetchHistoryData = async (
       `${API_BASE}/history?start_at=${startDate}&end_at=${endDate}&base=${base}&symbols=${target}`
     );
     const response: HistoryResponseObject = await request.json();
-
-    let series: GraphPoint[] = [];
-    for (let date in response.rates) {
-      series.push({
+    const series: GraphPoint[] = Object.keys(response.rates)
+      .sort()
+      .map((date: string) => ({
         date,
         rate: response.rates[date][target],
-      });
-    }
+      }));
 
     return series;
   } catch (err) {
