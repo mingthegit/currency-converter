@@ -42,7 +42,7 @@ const HistoryGraph = ({ graphData, dateRange, setDateRange }: HistoryGraphProps)
           ))}
         </Space>
       </Col>
-      <Col span={24}>
+      <Col span={24} className="ResponsiveContainer">
         <ResponsiveContainer>
           <AreaChart
             width={600}

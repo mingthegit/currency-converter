@@ -26,11 +26,7 @@ const selectProps = {
   },
 };
 
-const CurrencyForm = ({
-  formValues,
-  setFormValues,
-  exchangeRate,
-}: CurrencyFormProps) => {
+const CurrencyForm = ({ formValues, setFormValues, exchangeRate }: CurrencyFormProps) => {
   const handleCurrencySelect = (field: CurrencySource, value: Currency) => {
     const { base: prevBase, target: prevTarget } = formValues;
     let nextBase, nextTarget;
@@ -47,14 +43,16 @@ const CurrencyForm = ({
   };
 
   const handleAmountChange = (value: any) => {
-    if (value) {
-      setFormValues({ ...formValues, amount: value});
-    }
+    const isValid = !isNaN(parseFloat(value));
+    setFormValues({
+      ...formValues,
+      amount: isValid ? parseFloat(value) : formValues.amount,
+    });
   };
 
   const { base, target, amount } = formValues;
   const amountFallback = amount || 1;
-  const amountConverted = exchangeRate ? (amountFallback* exchangeRate).toFixed(2) : '';
+  const amountConverted = exchangeRate ? (amountFallback * exchangeRate).toFixed(2) : "";
 
   return (
     <Form size="large" layout="vertical" className="CurrencyForm">
@@ -83,13 +81,13 @@ const CurrencyForm = ({
         </Col>
         <Col xs={24}>
           <Form.Item label="Amount">
-          <InputNumber
-            className="AmountInput"
-            placeholder="In Base Currency"
-            min={0}
-            value={amount}
-            onChange={handleAmountChange}
-          />
+            <InputNumber
+              className="AmountInput"
+              placeholder="In Base Currency"
+              min={0}
+              value={amount}
+              onChange={handleAmountChange}
+            />
           </Form.Item>
         </Col>
       </Row>
@@ -97,7 +95,7 @@ const CurrencyForm = ({
         <Col span={24}>
           {exchangeRate && (
             <div className="ResultBox">
-              {`${amountFallback} ${base} equals `}
+              {`${amountFallback} ${base} equals`}
               <strong>{`${amountConverted} ${target}`}</strong>
             </div>
           )}

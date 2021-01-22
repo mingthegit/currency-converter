@@ -1,11 +1,13 @@
 .HistoryGraph {
-  height: 18rem;
-
   .Title {
     font-size: 1rem;
     margin-bottom: 1rem;
   }
   .RangeSelector {
     margin-bottom: 1rem;
+  }
+
+  .ResponsiveContainer {
+    height: 18rem;
   }
 }
