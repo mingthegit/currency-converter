@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Typography, Button, Space } from "antd";
+import { Row, Col, Typography, Button, Space, Spin } from "antd";
 import {
   AreaChart,
   Area,
@@ -17,9 +17,15 @@ interface HistoryGraphProps {
   graphData: GraphPoint[];
   dateRange: DateRange;
   setDateRange: Function;
+  fetchingData: boolean;
 }
 
-const HistoryGraph = ({ graphData, dateRange, setDateRange }: HistoryGraphProps) => {
+const HistoryGraph = ({
+  graphData,
+  dateRange,
+  setDateRange,
+  fetchingData,
+}: HistoryGraphProps) => {
   const handleRangeSelect = (range: string) => {
     setDateRange(range);
   };
@@ -45,7 +51,6 @@ const HistoryGraph = ({ graphData, dateRange, setDateRange }: HistoryGraphProps)
       <Col span={24} className="ResponsiveContainer">
         <ResponsiveContainer>
           <AreaChart
-            width={600}
             height={300}
             data={graphData}
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
@@ -57,6 +62,11 @@ const HistoryGraph = ({ graphData, dateRange, setDateRange }: HistoryGraphProps)
             <Area type="monotone" dataKey="rate" stroke="#82ca9d" fill="#82ca9d" />
           </AreaChart>
         </ResponsiveContainer>
+        {fetchingData && (
+          <div className="LoadingPane">
+            <Spin />
+          </div>
+        )}
       </Col>
     </Row>
   );

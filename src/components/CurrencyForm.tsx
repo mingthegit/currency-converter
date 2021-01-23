@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Form, InputNumber, Select } from "antd";
+import { Spin } from "antd";
 
 import {
   Currency,
@@ -11,9 +12,10 @@ import {
 import "./CurrencyForm.scss";
 
 interface CurrencyFormProps {
-  formValues: Partial<FormSchema>;
+  formValues: FormSchema;
   setFormValues: Function;
   exchangeRate: NullableNumber;
+  fetchingData: boolean;
 }
 
 const selectProps = {
@@ -26,7 +28,12 @@ const selectProps = {
   },
 };
 
-const CurrencyForm = ({ formValues, setFormValues, exchangeRate }: CurrencyFormProps) => {
+const CurrencyForm = ({
+  formValues,
+  setFormValues,
+  exchangeRate,
+  fetchingData,
+}: CurrencyFormProps) => {
   const handleCurrencySelect = (field: CurrencySource, value: Currency) => {
     const { base: prevBase, target: prevTarget } = formValues;
     let nextBase, nextTarget;
@@ -93,9 +100,14 @@ const CurrencyForm = ({ formValues, setFormValues, exchangeRate }: CurrencyFormP
       </Row>
       <Row>
         <Col span={24}>
-          {exchangeRate && (
+          {fetchingData && (
             <div className="ResultBox">
-              {`${amountFallback} ${base} equals`}
+              <Spin />
+            </div>
+          )}
+          {!fetchingData && exchangeRate && (
+            <div className="ResultBox">
+              <span>{`${amountFallback} ${base} equals`}</span>
               <strong>{`${amountConverted} ${target}`}</strong>
             </div>
           )}

@@ -9,5 +9,17 @@
 
   .ResponsiveContainer {
     height: 18rem;
+    position: relative;
+  }
+
+  .LoadingPane {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }

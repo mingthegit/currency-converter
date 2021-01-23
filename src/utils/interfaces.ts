@@ -25,7 +25,7 @@ export type NullableNumber = number | undefined;
 export type FormSchema = {
   base: Currency;
   target: Currency;
-  amount: NullableNumber;
+  amount?: number;
 };
 
 export enum CurrencySource {

@@ -14,19 +14,23 @@ const App = () => {
   const [formValues, setFormValues] = useState<FormSchema>({
     base: Currency.GBP,
     target: Currency.EUR,
-    amount: undefined,
   });
   const [exchangeRate, setExchangeRate] = useState<NullableNumber>();
-  const [dateRange, setDateRange] = useState<DateRange>(DateRange.OneMonth);
+  const [dateRange, setDateRange] = useState(DateRange.OneMonth);
   const [graphData, setGraphData] = useState<GraphPoint[]>([]);
+  const [fetchingRate, setFetchingRate] = useState(false);
+  const [fetchingGraph, setFetchingGraph] = useState(false);
 
   useEffect(() => {
     async function fetchExchangeRate(formValues: FormSchema) {
       try {
+        setFetchingRate(true);
         const rate = await API.fetchExchangeRate(formValues);
         setExchangeRate(rate);
       } catch (err) {
         console.error(err);
+      } finally {
+        setFetchingRate(false);
       }
     }
 
@@ -36,9 +40,12 @@ const App = () => {
   useEffect(() => {
     async function fetchHistoryData(formValues: FormSchema, dateRange: DateRange) {
       try {
+        setFetchingGraph(true);
         setGraphData(await API.fetchHistoryData(formValues, dateRange));
       } catch (err) {
         console.error(err);
+      } finally {
+        setFetchingGraph(false);
       }
     }
 
@@ -51,17 +58,22 @@ const App = () => {
         <Title>Currency Converter</Title>
       </Header>
       <Content className="Content">
-        <Space size="large" />
-        <Row justify="center" gutter={24}>
+        <Row justify="center" gutter={32}>
           <Col xs={22} sm={16} md={8} xl={5} className="Column">
             <CurrencyForm
               formValues={formValues}
               setFormValues={setFormValues}
               exchangeRate={exchangeRate}
+              fetchingData={fetchingRate}
             />
           </Col>
           <Col xs={22} sm={16} md={10} xl={8} className="Column">
-            <HistoryGraph graphData={graphData} dateRange={dateRange} setDateRange={setDateRange} />
+            <HistoryGraph
+              graphData={graphData}
+              dateRange={dateRange}
+              setDateRange={setDateRange}
+              fetchingData={fetchingGraph}
+            />
           </Col>
         </Row>
       </Content>
